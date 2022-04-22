@@ -1,14 +1,14 @@
 {
-  "name": "slack-demo",
+  "name": "@superfaceai/slack-demo",
+  "private": true,
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "node get-tokens.js > tokens.json"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@superfaceai/one-sdk": "^1.3.0",
     "dotenv": "^16.0.0",
