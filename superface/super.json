@@ -1,0 +1,26 @@
+{
+  "profiles": {
+    "chat/channels": {
+      "version": "1.0.0",
+      "providers": {
+        "slack": {}
+      },
+      "priority": [
+        "slack"
+      ]
+    }
+  },
+  "providers": {
+    "slack": {
+      "security": [
+        {
+          "id": "bearer_token",
+          "token": "$SLACK_TOKEN"
+        }
+      ],
+      "parameters": {
+        "accessToken": "$SLACK_ACCESSTOKEN"
+      }
+    }
+  }
+}
