@@ -1,7 +1,9 @@
 const util = require('util');
+const https = require('https');
+const fs = require('fs');
 const express = require('express');
 const passport = require('passport');
-const SlackStrategy = require('passport-slack-oauth2');
+const SlackStrategy = require('passport-slack-oauth2').Strategy;
 const session = require('express-session');
 
 require('dotenv').config();
@@ -35,17 +37,32 @@ passport.use(
     {
       clientID: process.env.SLACK_CLIENT_ID,
       clientSecret: process.env.SLACK_CLIENT_SECRET,
+      // https://stackoverflow.com/a/61243171
+      tokenURL: 'https://slack.com/api/oauth.v2.access',
+      authorizationURL: 'https://slack.com/oauth/v2/authorize',
       skipUserProfile: true,
       scope: SCOPES,
     },
     (accessToken, refreshToken, profile, done) => {
       onAuthSuccess({ accessToken, refreshToken });
-      return done(null, {
-        displayName: profile.displayName,
-      });
+      return done(null, {});
     }
   )
 );
+
+function setupHttps(server, keyPath, certPath) {
+  if (!keyPath || !certPath) {
+    console.warn('Missing certificate and/or key, skipping HTTPS setup');
+    return server;
+  }
+
+  const key = fs.readFileSync(keyPath);
+  const cert = fs.readFileSync(certPath);
+
+  const options = { key, cert };
+  const httpsServer = https.createServer(options, server);
+  return httpsServer;
+}
 
 const app = express();
 
@@ -58,11 +75,11 @@ app.get('/', function (req, res) {
   res.redirect('/auth/slack');
 });
 
-app.get('/auth/slack', passport.authenticate('slack'));
+app.get('/auth/slack', passport.authenticate('Slack'));
 
 app.get(
   '/auth/slack/callback',
-  passport.authenticate('slack', {
+  passport.authenticate('Slack', {
     failureRedirect: '/error?login',
     failureMessage: true,
   }),
@@ -89,6 +106,9 @@ app.use(function (err, req, res, next) {
   );
 });
 
-app.listen(3000, () => {
-  console.error(`👉 Visit ${process.env.BASE_URL}`);
-});
+setupHttps(app, process.env.HTTPS_KEY_PATH, process.env.HTTPS_CERT_PATH).listen(
+  3000,
+  () => {
+    console.error(`👉 Visit ${process.env.BASE_URL}`);
+  }
+);
