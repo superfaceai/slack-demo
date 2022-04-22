@@ -45,22 +45,23 @@ Alternatively you can use a tunneling proxy to receive a callback, e.g. [ngrok](
 
    ```yaml
    display_information:
-     name: Superface Test App
+   name: Superface Test App
    features:
-     bot_user:
-       display_name: Superface Test App
-       always_online: false
+   bot_user:
+     display_name: Superface Test App
+     always_online: false
    oauth_config:
-     redirect_urls:
-       - https://localhost:3000/auth/slack/callback
-     scopes:
-       bot:
-         - channels:read
-         - chat:write
+   redirect_urls:
+     - https://localhost:3000/auth/slack/callback
+   scopes:
+     bot:
+       - channels:read
+       - chat:write
+       - chat:write.public
    settings:
-     org_deploy_enabled: true
-     socket_mode_enabled: false
-     token_rotation_enabled: false
+   org_deploy_enabled: false
+   socket_mode_enabled: false
+   token_rotation_enabled: false
    ```
 
 3. From Basic Information page, copy Client ID and Client Secret to `.env`:
@@ -82,3 +83,4 @@ Alternatively run `get-tokens.js` script and paste the generated JSON manually.
 ## Run demo scripts
 
 - List public channels in the workspace: `node list-channels.js`
+- Send a message to a channel: `node send-message.js <channel ID> <message>`, e.g.: `node send-message.js C12345678 "Hello world"`

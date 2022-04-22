@@ -8,6 +8,15 @@
       "priority": [
         "slack"
       ]
+    },
+    "chat/send-message": {
+      "version": "1.0.0",
+      "providers": {
+        "slack": {}
+      },
+      "priority": [
+        "slack"
+      ]
     }
   },
   "providers": {

@@ -8,7 +8,7 @@ const session = require('express-session');
 
 require('dotenv').config();
 
-const SCOPES = ['channels:read', 'chat:write'];
+const SCOPES = ['channels:read', 'chat:write', 'chat:write.public'];
 
 const EXIT_ON_SUCCESS = true;
 
