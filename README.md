@@ -1,8 +1,9 @@
 # Slack with Superface
 
-This demo repository showcases the following integrations:
+This demo repository showcases the following integrations with Slack:
 
 - [chat/channels](https://superface.ai/chat/channels)
+- [chat/send-message](https://superface.ai/chat/send-message)
 
 ## Setup
 
