@@ -46,23 +46,23 @@ Alternatively you can use a tunneling proxy to receive a callback, e.g. [ngrok](
 
    ```yaml
    display_information:
-   name: Superface Test App
+     name: Superface Test App
    features:
-   bot_user:
-     display_name: Superface Test App
-     always_online: false
+     bot_user:
+       display_name: Superface Test App
+       always_online: false
    oauth_config:
-   redirect_urls:
-     - https://localhost:3000/auth/slack/callback
-   scopes:
-     bot:
-       - channels:read
-       - chat:write
-       - chat:write.public
+     redirect_urls:
+       - https://localhost:3000/auth/slack/callback
+     scopes:
+       bot:
+         - channels:read
+         - chat:write
+         - chat:write.public
    settings:
-   org_deploy_enabled: false
-   socket_mode_enabled: false
-   token_rotation_enabled: false
+     org_deploy_enabled: false
+     socket_mode_enabled: false
+     token_rotation_enabled: false
    ```
 
 3. From Basic Information page, copy Client ID and Client Secret to `.env`:
